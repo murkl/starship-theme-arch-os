@@ -19,8 +19,8 @@ Download & copy theme file.
 <br>
 
 <p>
-<img src="https://img.shields.io/badge/MAINTAINED-YES-green?style=for-the-badge">
-<img src="https://img.shields.io/badge/License-GPL_v2-blue?style=for-the-badge">
+  <img src="https://img.shields.io/badge/MAINTAINED-YES-green?style=for-the-badge">
+  <img src="https://img.shields.io/badge/License-GPL_v2-blue?style=for-the-badge">
 </p>
 
 <p>Used by <a href="https://github.com/murkl/arch-os">Arch OS</a></p>

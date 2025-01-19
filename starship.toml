@@ -47,7 +47,6 @@ color_blue2 = '#81a1c1'
 color_blue3 = '#88c0d0'
 color_blue4 = '#8fbcbb'
 
-
 # ----------------------------
 # Enable: Remove line 7 (░▒▓) at start of format and trailing whitespace at the end (line 23)
 
