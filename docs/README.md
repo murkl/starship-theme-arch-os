@@ -8,17 +8,13 @@
 
 Install dependencies and configure [Starship](https://starship.rs/guide/#step-2-set-up-your-shell-to-use-starship).
 
-```
-sudo pacman -S starship
-```
+`sudo pacman -S starship`
 
-Download & copy theme file to `~/.config/starship.toml`.
+Download & copy theme file.
 
-```
-curl -Ls https://raw.githubusercontent.com/murkl/starship-theme-arch-os/refs/heads/main/starship.toml > ~/.config/starship.toml
-```
+`curl -L https://raw.githubusercontent.com/murkl/starship-theme-arch-os/refs/heads/main/starship.toml > ~/.config/starship.toml`
 
-**CAUTION:** This may replace your existing `starship.toml` config file.
+**CAUTION:** This command replaces your existing configuration file.
 
 <br>
 
