@@ -1,1 +1,0 @@
-# starship-theme-arch-os
