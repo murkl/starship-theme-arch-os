@@ -3,6 +3,11 @@
 # Icons: https://www.nerdfonts.com/cheat-sheet
 # ░▒▓   ▓▒░   
 
+# ////////////////////////////////////////////////
+# FORMAT
+# ////////////////////////////////////////////////
+
+# Left
 format = """
 [░▒▓](color_black2)\
 $os\
@@ -13,16 +18,29 @@ $hostname\
 $username\
 [](fg:color_blue2 bg:color_yellow)\
 $shell\
+$sudo\
 [](fg:color_yellow bg:color_red)\
 $git_branch\
 $git_status\
+$package\
 $docker_context\
 [](fg:color_red bg:color_white3)\
 $directory\
 [](fg:color_white3)\
-$line_break$character """
- 
+$line_break\
+$character\
+[ ](fg:color_fg)
+"""
+
+# Right
+right_format = """$cmd_duration"""
+
+# Empty line
 add_newline = true
+
+# ////////////////////////////////////////////////
+# COLORS
+# ////////////////////////////////////////////////
 
 palette = 'arch_os'
 
@@ -47,8 +65,12 @@ color_blue2 = '#81a1c1'
 color_blue3 = '#88c0d0'
 color_blue4 = '#8fbcbb'
 
-# ----------------------------
-# Enable: Remove line 7 (░▒▓) at start of format and trailing whitespace at the end (line 23)
+# ////////////////////////////////////////////////
+# LINE BREAK (disabled)
+# ////////////////////////////////////////////////
+
+# Enable line break:
+# Remove line 12 (░▒▓) at start of format and trailing whitespace at the end (line 32)
 
 [line_break]
 #disabled = false # Enabled
@@ -64,7 +86,9 @@ vimcmd_replace_one_symbol = '[  ](bold fg:color_purple)'
 vimcmd_replace_symbol = '[  ](bold fg:color_purple)'
 vimcmd_visual_symbol = '[  ](bold fg:color_yellow)'
 
-# ----------------------------
+# ////////////////////////////////////////////////
+# MODULES LEFT
+# ////////////////////////////////////////////////
 
 [os]
 disabled = false
@@ -100,15 +124,11 @@ unknown_indicator = " 󰆍  shell "
 style = "fg:color_bg bg:color_yellow"
 format = "[$indicator]($style)"
 
-[directory]
+[sudo]
 disabled = false
-truncation_length = 3
-truncation_symbol = "…/"
-style = "fg:color_bg bg:color_white3"
-format = "[  $path ]($style)"
-
-[directory.substitutions]
-"~" = "  "
+symbol = '󰌆 ' 
+style = "fg:color_red bg:color_yellow"
+format = '[ $symbol ]($style)'
 
 [git_branch]
 symbol = ""
@@ -119,7 +139,28 @@ format = '[[ $symbol $branch ](fg:color_fg bg:color_red)]($style)'
 style = "bg:color_red"
 format = '[[($all_status$ahead_behind )](fg:color_fg bg:color_red)]($style)'
 
+[package]
+format = '[  $version ](fg:color_fg bg:color_red)'
+
 [docker_context]
 symbol = ""
 style = "bg:color_red"
 format = '[[ $symbol( $context) ](fg:color_fg bg:color_red)]($style)'
+
+[directory]
+disabled = false
+truncation_length = 3
+truncation_symbol = "…/"
+style = "fg:color_bg bg:color_white3"
+format = "[  $path ]($style)"
+
+[directory.substitutions]
+"~" = "  "
+
+# ////////////////////////////////////////////////
+# MODULES RIGHT
+# ////////////////////////////////////////////////
+
+[cmd_duration]
+style = "fg:color_fg"
+format = "[ ◄ $duration ]($style)"
