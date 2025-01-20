@@ -69,9 +69,6 @@ color_blue4 = '#8fbcbb'
 # LINE BREAK (disabled)
 # ////////////////////////////////////////////////
 
-# Enable line break:
-# Remove line 12 (░▒▓) at start of format and trailing whitespace at the end (line 32)
-
 [line_break]
 disabled = true # Disabled
 
