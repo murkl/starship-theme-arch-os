@@ -6,17 +6,17 @@
 
 ## Install Starship Theme
 
-Install dependencies and configure [Starship](https://starship.rs/guide/#step-2-set-up-your-shell-to-use-starship).
+<strong>1. Install dependencies and configure [Starship](https://starship.rs/guide/#step-2-set-up-your-shell-to-use-starship).</strong>
 
-**`sudo pacman -S starship`**
+`sudo pacman -S starship`
 
-Download & copy theme file.
+<strong>2. Download & copy theme file.</strong>
 
-**`curl -L https://raw.githubusercontent.com/murkl/starship-theme-arch-os/refs/heads/main/starship.toml > ~/.config/starship.toml`**
+`curl -L https://raw.githubusercontent.com/murkl/starship-theme-arch-os/refs/heads/main/starship.toml > ~/.config/starship.toml`
 
-Copy to root (optional).
+<strong>3. Copy to root (optional).</strong>
 
-**`sudo cp -f ~/.config/starship.toml /root/.config/starship.toml`**
+`sudo cp -f ~/.config/starship.toml /root/.config/starship.toml`
 
 **CAUTION:** This commands replaces your existing configuration files.
 
