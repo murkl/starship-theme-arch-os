@@ -14,10 +14,12 @@ $os\
 $time\
 [](fg:color_black2 bg:color_green)\
 $hostname\
+$localip\
 [](fg:color_green bg:color_blue2)\
 $username\
 [](fg:color_blue2 bg:color_yellow)\
 $shell\
+$shlvl\
 $sudo\
 [](fg:color_yellow bg:color_red)\
 $git_branch\
@@ -104,7 +106,13 @@ disabled = false
 ssh_only = true
 ssh_symbol =  " 󱘖 " # 󱘖    󰣀
 style = "fg:color_bg bg:color_green"
-format = '[$ssh_symbol]($style)[   $hostname ]($style)'
+format = '[$ssh_symbol]($style)[ 󰍹  $hostname ]($style)'
+
+[localip]
+disabled = false
+ssh_only = true
+style = "fg:color_bg bg:color_green"
+format = '[ 󰩟 $localipv4 ]($style)'
 
 [username]
 disabled = false
@@ -116,10 +124,17 @@ format = '[  ]($style)[ $user ](fg:color_bg bg:color_blue2)'
 [shell]
 disabled = false
 fish_indicator = ""
-bash_indicator = " 󰆍  bash "
-unknown_indicator = " 󰆍  shell "
+bash_indicator = "   bash "
+unknown_indicator = "   shell "
 style = "fg:color_bg bg:color_yellow"
 format = "[$indicator]($style)"
+
+[shlvl]
+disabled = false
+threshold = 2
+symbol = ''
+style = "fg:color_bg bg:color_yellow"
+format = "[ $symbol $shlvl ]($style)"
 
 [sudo]
 disabled = false
@@ -147,11 +162,11 @@ format = '[[ $symbol( $context) ](fg:color_fg bg:color_red)]($style)'
 [directory]
 truncation_length = 3
 truncation_symbol = "…/"
+home_symbol = " " 
+read_only = "  "
+read_only_style = "fg:color_red bg:color_white3"
 style = "fg:color_bg bg:color_white3"
-format = "[  $path ]($style)"
-
-[directory.substitutions]
-"~" = "  "
+format = "[  ]($style)[$read_only]($read_only_style)[ $path ]($style)"
 
 # ////////////////////////////////////////////////
 # MODULES RIGHT
