@@ -160,8 +160,8 @@ style = "bg:color_red"
 format = '[[ $symbol( $context) ](fg:color_fg bg:color_red)]($style)'
 
 [directory]
-truncation_length = 3
-truncation_symbol = "…/"
+truncation_length = 6
+truncation_symbol = "••/"
 home_symbol = " " 
 read_only = "  "
 read_only_style = "fg:color_red bg:color_white3"
