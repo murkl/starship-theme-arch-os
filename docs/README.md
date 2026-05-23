@@ -58,7 +58,7 @@ sudo cp -f ~/.config/starship.toml /root/.config/starship.toml
 <br>
 
 ![](https://img.shields.io/badge/MAINTAINED-YES-green?style=for-the-badge)
-![](https://img.shields.io/badge/License-GPL_v2-blue?style=for-the-badge)
+![](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
 
 Used by [Arch OS](https://github.com/murkl/arch-os)
 
