@@ -1,30 +1,61 @@
 <div align="center">
 
-<h1>Arch OS Starship Theme</h1>
-<p><img src="./screenshot02.png" /></p>
-<p><img src="./screenshot01.png" /></p>
+# Arch OS Starship Theme
 
-## Install Starship Theme
+![](./screenshot-01.png)
 
-<strong>1. Install dependencies and configure [Starship](https://starship.rs/guide/#step-2-set-up-your-shell-to-use-starship).</strong>
+![](./screenshot-02.png)
 
-`sudo pacman -S starship`
+<details>
+<summary><b>Legacy Version</b></summary>
 
-<strong>2. Download & copy theme file.</strong>
+<br>
 
-`curl -L https://raw.githubusercontent.com/murkl/starship-theme-arch-os/refs/heads/main/starship.toml > ~/.config/starship.toml`
+![](./screenshot-legacy-01.png)
 
-<strong>3. Copy to root (optional).</strong>
+![](./screenshot-legacy-02.png)
 
-`sudo cp -f ~/.config/starship.toml /root/.config/starship.toml`
+</details>
 
-**CAUTION:** This commands replaces your existing configuration files.
+## 1. Install Starship
 
-<p>
-  <img src="https://img.shields.io/badge/MAINTAINED-YES-green?style=for-the-badge">
-  <img src="https://img.shields.io/badge/License-GPL_v2-blue?style=for-the-badge">
-</p>
+```bash
+sudo pacman -S starship
+```
 
-<p>Used by <a href="https://github.com/murkl/arch-os">Arch OS</a></p>
+[Configure your shell](https://starship.rs/guide/#step-2-set-up-your-shell-to-use-starship)
+
+## 2. Download Theme
+
+```bash
+curl -L https://raw.githubusercontent.com/murkl/starship-theme-arch-os/refs/heads/main/starship.toml > ~/.config/starship.toml
+```
+
+<details>
+<summary><b>Legacy Version</b></summary>
+
+<br>
+
+```bash
+curl -L https://raw.githubusercontent.com/murkl/starship-theme-arch-os/refs/heads/main/starship-legacy.toml > ~/.config/starship.toml
+```
+
+</details>
+
+## 3. Copy to Root _(optional)_
+
+```bash
+sudo cp -f ~/.config/starship.toml /root/.config/starship.toml
+```
+
+> [!CAUTION]
+> These commands replace your existing Starship configuration.
+
+<br>
+
+![](https://img.shields.io/badge/MAINTAINED-YES-green?style=for-the-badge)
+![](https://img.shields.io/badge/License-GPL_v2-blue?style=for-the-badge)
+
+Used by [Arch OS](https://github.com/murkl/arch-os)
 
 </div>

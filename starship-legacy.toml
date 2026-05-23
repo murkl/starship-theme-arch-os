@@ -1,7 +1,7 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 # Icons: https://www.nerdfonts.com/cheat-sheet
-# ░▒▓ ▓▒░  █ 
+# ░▒▓   ▓▒░   
 
 # ////////////////////////////////////////////////
 # FORMAT
@@ -9,35 +9,36 @@
 
 # Left
 format = """
-[█](fg:color_bg)\
+[░▒▓](color_black2)\
 $os\
 $time\
-[](fg:color_bg bg:color_blue2)\
+[](fg:color_black2 bg:color_green)\
 $hostname\
 $localip\
-[](fg:color_blue2 bg:color_red)\
+[](fg:color_green bg:color_blue2)\
 $username\
-[](fg:color_red bg:color_yellow)\
+[](fg:color_blue2 bg:color_yellow)\
 $shell\
 $shlvl\
 $sudo\
-[](fg:color_yellow bg:color_green)\
+[](fg:color_yellow bg:color_red)\
 $git_branch\
 $git_status\
 $package\
 $docker_context\
-[](fg:color_green bg:color_fg)\
+[](fg:color_red bg:color_white3)\
 $directory\
-[](fg:color_fg)\
+[](fg:color_white3)\
 $line_break\
 $character\
+[ ](fg:color_fg)
 """
 
 # Right
 right_format = """$cmd_duration"""
 
 # Empty line
-add_newline = false
+add_newline = true
 
 # ////////////////////////////////////////////////
 # COLORS
@@ -67,21 +68,20 @@ color_blue3 = '#88c0d0'
 color_blue4 = '#8fbcbb'
 
 # ////////////////////////////////////////////////
-# LINE BREAK
+# LINE BREAK (disabled)
 # ////////////////////////////////////////////////
 
 [line_break]
-disabled = false
+disabled = true # Disabled
 
 [character]
-disabled = false
-format = "[$symbol]($style)"
-success_symbol = '[  :  ](bold fg:color_fg)' 
-error_symbol = '[  :  ](bold fg:color_red)'
-vimcmd_symbol = '[    ](bold fg:color_fg)'
-vimcmd_replace_one_symbol = '[    ](bold fg:color_purple)'
-vimcmd_replace_symbol = '[    ](bold fg:color_purple)'
-vimcmd_visual_symbol = '[    ](bold fg:color_yellow)'
+disabled = true # Disabled
+success_symbol = '[ :](bold fg:color_green)' 
+error_symbol = '[ :](bold fg:color_red)'
+vimcmd_symbol = '[  ](bold fg:color_green)'
+vimcmd_replace_one_symbol = '[  ](bold fg:color_purple)'
+vimcmd_replace_symbol = '[  ](bold fg:color_purple)'
+vimcmd_visual_symbol = '[  ](bold fg:color_yellow)'
 
 # ////////////////////////////////////////////////
 # MODULES LEFT
@@ -89,48 +89,50 @@ vimcmd_visual_symbol = '[    ](bold fg:color_yellow)'
 
 [os]
 disabled = false
-style = "fg:color_fg bg:color_bg"
+style = "fg:color_white3 bg:color_black2"
 format = "[ $symbol ]($style)"
-symbols = { Arch = " ", Unknown = " " } #   󰸳   󰰎 󱗿 󱥸 
+
+[os.symbols]
+Arch = ""
 
 [time]
-disabled = true
+disabled = false
 time_format = "%R" # Hour:Minute Format
-style = "bg:color_bg"
-format = '[[   $time ](fg:color_fg bg:color_bg)]($style)'
+style = "bg:color_black2"
+format = '[[   $time ](fg:color_white3 bg:color_black2)]($style)'
 
 [hostname]
 disabled = false
 ssh_only = true
 ssh_symbol =  " 󱘖 " # 󱘖    󰣀
-style = "fg:color_bg bg:color_blue2"
+style = "fg:color_bg bg:color_green"
 format = '[$ssh_symbol]($style)[ 󰍹  $hostname ]($style)'
 
 [localip]
 disabled = false
 ssh_only = true
-style = "fg:color_bg bg:color_blue2"
+style = "fg:color_bg bg:color_green"
 format = '[ 󰩟 $localipv4 ]($style)'
 
 [username]
 disabled = false
 show_always = false
-style_user = "fg:color_bg bg:color_red"
-style_root = "fg:color_bg bg:color_red"
-format = '[  ]($style)[ $user ](fg:color_bg bg:color_red)'
+style_user = "fg:color_bg bg:color_blue2"
+style_root = "fg:color_red bg:color_blue2"
+format = '[  ]($style)[ $user ](fg:color_bg bg:color_blue2)'
  
 [shell]
 disabled = false
 fish_indicator = ""
-bash_indicator = "  bash "
-unknown_indicator = "  shell "
+bash_indicator = "   bash "
+unknown_indicator = "   shell "
 style = "fg:color_bg bg:color_yellow"
 format = "[$indicator]($style)"
 
 [shlvl]
 disabled = false
 threshold = 2
-symbol = ''
+symbol = ''
 style = "fg:color_bg bg:color_yellow"
 format = "[ $symbol $shlvl ]($style)"
 
@@ -141,38 +143,35 @@ style = "fg:color_red bg:color_yellow"
 format = '[ $symbol ]($style)'
 
 [git_branch]
-symbol = "󰘬"
-style = "bg:color_green"
-format = '[[ $symbol $branch ](fg:color_bg bg:color_green)]($style)'
+symbol = ""
+style = "bg:color_red"
+format = '[[ $symbol $branch ](fg:color_fg bg:color_red)]($style)'
 
 [git_status]
-style = "bg:color_green"
-format = '[[($all_status$ahead_behind )](fg:color_bg bg:color_green)]($style)'
+style = "bg:color_red"
+format = '[[($all_status$ahead_behind )](fg:color_fg bg:color_red)]($style)'
 
 [package]
-format = '[  $version ](fg:color_bg bg:color_green)'
+format = '[  $version ](fg:color_fg bg:color_red)'
 
 [docker_context]
 symbol = ""
-style = "bg:color_green"
-format = '[[ $symbol( $context) ](fg:color_bg bg:color_green)]($style)'
+style = "bg:color_red"
+format = '[[ $symbol( $context) ](fg:color_fg bg:color_red)]($style)'
 
 [directory]
-truncation_length = 5
-truncation_symbol = "../"
-home_symbol = "~" 
+truncation_length = 6
+truncation_symbol = "••/"
+home_symbol = " " 
 read_only = "  "
-read_only_style = "fg:color_red bg:color_fg"
-style = "bold fg:color_bg bg:color_fg"
-format = "[ 󰉋 ]($style)[$read_only]($read_only_style)[ $path ]($style)"
+read_only_style = "fg:color_red bg:color_white3"
+style = "fg:color_bg bg:color_white3"
+format = "[  ]($style)[$read_only]($read_only_style)[ $path ]($style)"
 
 # ////////////////////////////////////////////////
 # MODULES RIGHT
 # ////////////////////////////////////////////////
 
 [cmd_duration]
-disabled = false
 style = "fg:color_fg"
 format = "[ ◄ $duration ]($style)"
-min_time = 500 # ms
-
