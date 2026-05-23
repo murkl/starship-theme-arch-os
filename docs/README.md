@@ -48,8 +48,12 @@ curl -L https://raw.githubusercontent.com/murkl/starship-theme-arch-os/refs/head
 sudo cp -f ~/.config/starship.toml /root/.config/starship.toml
 ```
 
+</div>
+
 > [!CAUTION]
 > These commands replace your existing Starship configuration.
+
+<div align="center">
 
 <br>
 
