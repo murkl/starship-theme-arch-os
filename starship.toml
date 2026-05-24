@@ -96,8 +96,8 @@ symbols = { Arch = " ", Unknown = " " } #   󰸳   󰰎 󱗿 �
 [time]
 disabled = true
 time_format = "%R" # Hour:Minute Format
-style = "bg:color_bg"
-format = '[[   $time ](fg:color_fg bg:color_bg)]($style)'
+style = "fg:color_fg bg:color_bg"
+format = '[   $time ]($style)'
 
 [hostname]
 disabled = false
@@ -115,9 +115,9 @@ format = '[ 󰩟 $localipv4 ]($style)'
 [username]
 disabled = false
 show_always = false
-style_user = "fg:color_bg bg:color_red"
-style_root = "fg:color_bg bg:color_red"
-format = '[  ]($style)[ $user ](fg:color_bg bg:color_red)'
+style_user = "fg:color_fg bg:color_red"
+style_root = "fg:color_fg bg:color_red"
+format = '[  ]($style)[ $user ]($style)'
  
 [shell]
 disabled = false
@@ -142,20 +142,21 @@ format = '[ $symbol ]($style)'
 
 [git_branch]
 symbol = "󰘬"
-style = "bg:color_green"
-format = '[[ $symbol $branch ](fg:color_bg bg:color_green)]($style)'
+style = "fg:color_bg bg:color_green"
+format = '[ $symbol $branch ]($style)'
 
 [git_status]
-style = "bg:color_green"
-format = '[[($all_status$ahead_behind )](fg:color_bg bg:color_green)]($style)'
+style = "bold fg:color_red bg:color_green"
+format = '[$all_status$ahead_behind ]($style)'
 
 [package]
 format = '[  $version ](fg:color_bg bg:color_green)'
 
 [docker_context]
+only_with_files = true
 symbol = ""
-style = "bg:color_green"
-format = '[[ $symbol( $context) ](fg:color_bg bg:color_green)]($style)'
+style = "fg:color_bg bg:color_green"
+format = '[ $symbol( $context) ]($style)'
 
 [directory]
 truncation_length = 5
