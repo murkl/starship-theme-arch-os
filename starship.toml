@@ -115,8 +115,8 @@ format = '[ 󰩟 $localipv4 ]($style)'
 [username]
 disabled = false
 show_always = false
-style_user = "fg:color_fg bg:color_red"
-style_root = "fg:color_fg bg:color_red"
+style_user = "fg:color_bg bg:color_red"
+style_root = "fg:color_bg bg:color_red"
 format = '[  ]($style)[ $user ]($style)'
  
 [shell]
