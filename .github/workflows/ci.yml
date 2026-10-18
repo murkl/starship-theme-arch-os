@@ -1,0 +1,27 @@
+# Every Arch OS install fetches starship.toml from main, so a pull request is
+# checked against Starship as Arch ships it.
+
+name: CI
+
+on:
+  pull_request:
+
+permissions: {}
+
+jobs:
+  check:
+    name: Check
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    # The date names the base, the digest pins it.
+    container: archlinux:base-20261011.0.609700@sha256:3c64b538588416593f69a1aebd2f2ec0f2541b29159f32556fa7def2167147a0
+    permissions:
+      contents: read
+    steps:
+      - run: pacman -Syu --noconfirm --needed starship python
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+
+      - run: python3 check.py

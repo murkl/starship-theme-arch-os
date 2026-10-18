@@ -1,26 +1,19 @@
+# Arch OS prompt theme: https://github.com/murkl/starship-theme-arch-os
+# SPDX-FileCopyrightText: 2025 Moritz Schaal
+# SPDX-License-Identifier: MIT
+
 "$schema" = 'https://starship.rs/config-schema.json'
 
-# Icons: https://www.nerdfonts.com/cheat-sheet
-# ░▒▓ ▓▒░  █ 
-
-# ////////////////////////////////////////////////
-# FORMAT
-# ////////////////////////////////////////////////
-
-# Left
 format = """
-[█](fg:color_bg)\
 $os\
-$time\
-[](fg:color_bg bg:color_blue2)\
+[](fg:color_bg bg:color_blue)\
 $hostname\
 $localip\
-[](fg:color_blue2 bg:color_red)\
+[](fg:color_blue bg:color_red)\
 $username\
 [](fg:color_red bg:color_yellow)\
 $shell\
 $shlvl\
-$sudo\
 [](fg:color_yellow bg:color_green)\
 $git_branch\
 $git_status\
@@ -30,151 +23,97 @@ $docker_context\
 $directory\
 [](fg:color_fg)\
 $line_break\
-$character\
-"""
-
-# Right
-right_format = """$cmd_duration"""
-
-# Empty line
+$character"""
+right_format = '$cmd_duration'
 add_newline = false
-
-# ////////////////////////////////////////////////
-# COLORS
-# ////////////////////////////////////////////////
-
 palette = 'arch_os'
 
 # Nord: https://www.nordtheme.com
 [palettes.arch_os]
 color_fg = '#d8dee9'
 color_bg = '#2e3440'
+color_blue = '#81a1c1'
 color_red = '#bf616a'
+color_yellow = '#ebcb8b'
 color_green = '#a3be8c'
 color_purple = '#b48ead'
-color_yellow = '#ebcb8b'
-color_orange = '#d08770'
-color_white1 = '#eceff4'
-color_white2 = '#e5e9f0'
-color_white3 = '#d8dee9'
-color_black1 = '#2e3440'
-color_black2 = '#3b4252'
-color_black3 = '#434c5e'
-color_black4 = '#4c566a'
-color_blue1 = '#5e81ac'
-color_blue2 = '#81a1c1'
-color_blue3 = '#88c0d0'
-color_blue4 = '#8fbcbb'
 
-# ////////////////////////////////////////////////
-# LINE BREAK
-# ////////////////////////////////////////////////
+# One space between an icon and its text: each such icon ends within 1.35 cells
+# of FiraCode Nerd Font, the font arch-os sets for GNOME.
 
-[line_break]
+[os]
 disabled = false
+symbols = { Arch = ' ', Unknown = ' ' }
+style = 'fg:color_fg bg:color_bg'
+format = '[  $symbol ]($style)'
+
+[hostname]
+ssh_symbol = ' '
+style = 'fg:color_bg bg:color_blue'
+format = '[ $ssh_symbol󱡶 $hostname ]($style)'
+
+[localip]
+disabled = false
+style = 'fg:color_bg bg:color_blue'
+format = '[ 󰩟 $localipv4 ]($style)'
+
+[username]
+style_user = 'fg:color_bg bg:color_red'
+style_root = 'fg:color_bg bg:color_red'
+format = '[ 󰀄 $user ]($style)'
+
+[shell]
+disabled = false
+zsh_indicator = ''
+bash_indicator = '  bash '
+fish_indicator = '  fish '
+unknown_indicator = '  shell '
+style = 'fg:color_bg bg:color_yellow'
+format = '[$indicator]($style)'
+
+[shlvl]
+disabled = false
+symbol = ''
+style = 'fg:color_bg bg:color_yellow'
+format = '[ $symbol $shlvl ]($style)'
+
+[git_branch]
+symbol = '󰘬'
+style = 'fg:color_bg bg:color_green'
+format = '[ $symbol $branch ]($style)'
+
+[git_status]
+style = 'bold fg:color_bg bg:color_green'
+format = '([$all_status$ahead_behind ]($style))'
+
+[package]
+symbol = '󰏗'
+style = 'fg:color_bg bg:color_green'
+format = '[ $symbol $version ]($style)'
+
+[docker_context]
+symbol = '󰡨'
+style = 'fg:color_bg bg:color_green'
+format = '[ $symbol $context ]($style)'
+
+[directory]
+truncation_length = 5
+truncation_symbol = '../'
+read_only = '󰌾 '
+read_only_style = 'fg:color_red bg:color_fg'
+style = 'bold fg:color_bg bg:color_fg'
+format = '[ 󰉋 ]($style)[$read_only]($read_only_style)[$path ]($style)'
 
 [character]
-disabled = false
-format = "[$symbol]($style)"
-success_symbol = '[  :  ](bold fg:color_fg)' 
+format = '$symbol'
+success_symbol = '[  :  ](bold fg:color_fg)'
 error_symbol = '[  :  ](bold fg:color_red)'
 vimcmd_symbol = '[    ](bold fg:color_fg)'
 vimcmd_replace_one_symbol = '[    ](bold fg:color_purple)'
 vimcmd_replace_symbol = '[    ](bold fg:color_purple)'
 vimcmd_visual_symbol = '[    ](bold fg:color_yellow)'
 
-# ////////////////////////////////////////////////
-# MODULES LEFT
-# ////////////////////////////////////////////////
-
-[os]
-disabled = false
-style = "fg:color_fg bg:color_bg"
-format = "[ $symbol ]($style)"
-symbols = { Arch = " ", Unknown = " " } #   󰸳   󰰎 󱗿 󱥸 
-
-[time]
-disabled = true
-time_format = "%R" # Hour:Minute Format
-style = "fg:color_fg bg:color_bg"
-format = '[   $time ]($style)'
-
-[hostname]
-disabled = false
-ssh_only = true
-ssh_symbol =  " 󱘖 " # 󱘖    󰣀
-style = "fg:color_bg bg:color_blue2"
-format = '[$ssh_symbol]($style)[ 󰍹  $hostname ]($style)'
-
-[localip]
-disabled = false
-ssh_only = true
-style = "fg:color_bg bg:color_blue2"
-format = '[ 󰩟 $localipv4 ]($style)'
-
-[username]
-disabled = false
-show_always = false
-style_user = "fg:color_bg bg:color_red"
-style_root = "fg:color_bg bg:color_red"
-format = '[  ]($style)[ $user ]($style)'
- 
-[shell]
-disabled = false
-zsh_indicator = ""
-fish_indicator = "  fish "
-bash_indicator = "  bash "
-unknown_indicator = "  shell "
-style = "fg:color_bg bg:color_yellow"
-format = "[$indicator]($style)"
-
-[shlvl]
-disabled = false
-threshold = 2
-symbol = ''
-style = "fg:color_bg bg:color_yellow"
-format = "[ $symbol $shlvl ]($style)"
-
-[sudo]
-disabled = true # Throws some warnings in sys log
-symbol = '󰌆 ' 
-style = "fg:color_red bg:color_yellow"
-format = '[ $symbol ]($style)'
-
-[git_branch]
-symbol = "󰘬"
-style = "fg:color_bg bg:color_green"
-format = '[ $symbol $branch ]($style)'
-
-[git_status]
-style = "bold fg:color_red bg:color_green"
-format = '[$all_status$ahead_behind ]($style)'
-
-[package]
-format = '[  $version ](fg:color_bg bg:color_green)'
-
-[docker_context]
-only_with_files = true
-symbol = ""
-style = "fg:color_bg bg:color_green"
-format = '[ $symbol( $context) ]($style)'
-
-[directory]
-truncation_length = 5
-truncation_symbol = "../"
-home_symbol = "~" 
-read_only = "  "
-read_only_style = "fg:color_red bg:color_fg"
-style = "bold fg:color_bg bg:color_fg"
-format = "[ 󰉋 ]($style)[$read_only]($read_only_style)[ $path ]($style)"
-
-# ////////////////////////////////////////////////
-# MODULES RIGHT
-# ////////////////////////////////////////////////
-
 [cmd_duration]
-disabled = false
-style = "fg:color_fg"
-format = "[ ◄ $duration ]($style)"
-min_time = 500 # ms
-
+min_time = 500
+style = 'fg:color_fg'
+format = '[ ◄ $duration ]($style)'
