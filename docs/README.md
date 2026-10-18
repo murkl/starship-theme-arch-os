@@ -1,6 +1,6 @@
 <div align="center">
 
-<p><img src="screenshots/short.png" width="200" alt="The prompt at home: the Arch logo, four color stripes and the directory"></p>
+<p><img src="banner.png" alt="Arch OS Starship Theme: the prompt at home, and over SSH in a git repository"></p>
 
 <p>A clean <b>Nord</b> prompt that shows only what matters right now.</p>
 
@@ -13,8 +13,6 @@
 </div>
 
 ## Features
-
-<img src="screenshots/long.png" width="938" alt="Over SSH in a git repository: host, address, user, shell, nesting level, branch, directory and the duration">
 
 Each part appears only when it applies:
 
@@ -32,7 +30,7 @@ Each part appears only when it applies:
 sudo pacman -S starship ttf-firacode-nerd
 ```
 
-Set **FiraCode Nerd Font** as the terminal font, [set up your shell](https://starship.rs/guide/#step-2-set-up-your-shell-to-use-starship), then fetch the theme:
+Set **FiraCode Nerd Font** as the terminal font, [set up your shell](https://starship.rs/guide/#step-2-set-up-your-shell-to-use-starship), then fetch the theme. The same command updates it later:
 
 ```sh
 curl --proto '=https' -fsSL --create-dirs -o ~/.config/starship.toml https://raw.githubusercontent.com/murkl/starship-theme-arch-os/main/starship.toml

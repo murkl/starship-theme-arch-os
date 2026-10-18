@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-"""Renders docs/screenshots/: the short prompt at home and the long one over SSH
-in a git repository, each on the card arch-os pictures its interface on. By
-hand after a visible change.
+"""Renders docs/banner.png: the name over the short prompt at home and the long
+one over SSH in a git repository, by hand after a visible change.
 
 Starship runs as tux on arch-os in throwaway namespaces, so nothing of this
 machine shows. Needs chromium, imagemagick, git and ttf-firacode-nerd.
 
-  docs/screenshots.py
+  docs/banner.py
 """
 
 import html
@@ -19,8 +18,7 @@ import sys
 import tempfile
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-OUT = ROOT / "docs/screenshots"
-README = ROOT / "docs/README.md"
+OUT = ROOT / "docs/banner.png"
 
 # The card of arch-os/docs/screenshots.py, in the font arch-os sets for GNOME.
 FONT = "FiraCode Nerd Font"
@@ -28,6 +26,11 @@ FONT_PX, LINE_PX = 15, 22
 PAD, RADIUS, SCALE = 26, 10, 2
 LEAD = (LINE_PX - FONT_PX) / 2
 CARD, TEXT = "#2e3440", "#d8dee9"
+
+# Nord frost, light under the name, where its ink keeps 6:1, deeper under the
+# cards. Both ends stand off a light page and a dark one.
+BAND = "linear-gradient(120deg, #88c0d0, #5e81ac)"
+INK = "#2e3440"
 
 # The separator fills its whole cell, as a terminal draws it. From the font it
 # would stop short of the line height.
@@ -107,42 +110,48 @@ def markup(row):
     return "".join(spans)
 
 
-def card(rows, tmp, out):
-    """The rows on a rounded card, the picture trimmed back to the card. Returns
-    the width to show it at, in CSS pixels."""
-    page = tmp / "card.html"
+def card(rows):
+    return f'<div class="card"><pre>{"\n".join(map(markup, rows))}</pre></div>'
+
+
+def banner(short, long, tmp):
+    """The name over both cards on one band, the picture trimmed back to the band."""
+    page = tmp / "banner.html"
     page.write_text(f"""<!DOCTYPE html>
 <html><head><meta charset="utf-8"><style>
   * {{ margin:0; padding:0; }}
-  body {{ background:transparent; }}
+  body {{ background:transparent; font-family:"{FONT}"; }}
+  .band {{
+    display:inline-flex; flex-direction:column; gap:{PAD}px; padding:{2 * PAD}px;
+    background:{BAND}; border-radius:{2 * RADIUS}px; color:{INK};
+  }}
+  .eyebrow {{ font-size:16px; letter-spacing:.4em; }}
+  .name {{ font-size:40px; font-weight:700; line-height:1.2; }}
+  .cards {{ display:flex; gap:{PAD}px; }}
   .card {{
-    display:inline-block; padding:{PAD - LEAD}px {PAD}px;
-    background:{CARD}; border-radius:{RADIUS}px;
+    padding:{PAD - LEAD}px {PAD}px; background:{CARD}; border-radius:{RADIUS}px;
+    box-shadow:0 12px 32px rgb(46 52 64 / 35%);
   }}
   pre {{
-    font-family:"{FONT}"; font-size:{FONT_PX}px; line-height:{LINE_PX}px;
+    font-family:inherit; font-size:{FONT_PX}px; line-height:{LINE_PX}px;
     color:{TEXT}; white-space:pre; font-variant-ligatures:none;
   }}
-</style></head><body><div class="card"><pre>{"\n".join(map(markup, rows))}</pre></div></body></html>""")
-    # No glyph advance is wider than the font size, so the card always fits.
-    width = max(map(len, rows)) * FONT_PX + 4 * PAD
-    height = len(rows) * LINE_PX + 4 * PAD
+</style></head><body><div class="band">
+  <div><div class="eyebrow">ARCH OS</div><div class="name">Starship Theme</div></div>
+  <div class="cards">{card(short)}{card(long)}</div>
+</div></body></html>""")
+    # No glyph advance is wider than the font size, so the band always fits.
+    width = (len(short[0]) + len(long[0])) * FONT_PX + 12 * PAD
+    height = (len(long) + 6) * LINE_PX + 8 * PAD
     subprocess.run([
         "chromium", "--headless", f"--user-data-dir={tmp / 'chromium'}",
         f"--force-device-scale-factor={SCALE}", "--default-background-color=00000000",
-        "--hide-scrollbars", f"--window-size={width},{height}", f"--screenshot={out}",
+        "--hide-scrollbars", f"--window-size={width},{height}", f"--screenshot={OUT}",
         page.as_uri(),
     ], check=True, capture_output=True)
-    subprocess.run(["magick", str(out), "-trim", "+repage", str(out)], check=True)
-    # Even on both axes, so half its pixels is a whole width and nothing resamples.
-    size = subprocess.run(["magick", "identify", "-format", "%w %h", str(out)],
-                          capture_output=True, text=True, check=True).stdout
-    w, h = (n + n % 2 for n in map(int, size.split()))
-    subprocess.run(["magick", str(out), "-background", "none", "-gravity", "center",
-                    "-extent", f"{w}x{h}", "-strip", "-define", "png:compression-level=9",
-                    str(out)], check=True)
-    print(out.relative_to(ROOT))
-    return w // SCALE
+    subprocess.run(["magick", str(OUT), "-trim", "+repage", "-strip",
+                    "-define", "png:compression-level=9", str(OUT)], check=True)
+    print(OUT.relative_to(ROOT))
 
 
 def main():
@@ -171,18 +180,8 @@ def main():
         right = prompt(tmp, repo, "bash", "--right", "--cmd-duration=2400", **ssh)
 
         short, long, right = (list(map(cells, p.split("\n"))) for p in (short, long, right))
-        long[0] += [(" ", None, None, False)] * 6 + right[0]
-
-        # The README shows each card at its CSS width, the one place it is set.
-        OUT.mkdir(exist_ok=True)
-        readme = README.read_text()
-        for name, rows in (("short", short), ("long", long)):
-            width = card(rows, tmp, OUT / f"{name}.png")
-            readme, found = re.subn(rf'(<img src="screenshots/{name}\.png" width=")\d+"',
-                                    rf'\g<1>{width}"', readme)
-            if found != 1:
-                sys.exit(f'docs/README.md: needs one <img src="screenshots/{name}.png" width="…">')
-        README.write_text(readme)
+        long[0] += [(" ", None, None, False)] * 4 + right[0]
+        banner(short, long, tmp)
 
 
 if __name__ == "__main__":
