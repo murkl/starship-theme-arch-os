@@ -6,22 +6,22 @@
 
 format = """
 $os\
-[](fg:color_bg bg:color_blue)\
-$hostname\
-$localip\
-[](fg:color_blue bg:color_red)\
-$username\
-[](fg:color_red bg:color_yellow)\
-$shell\
-$shlvl\
-[](fg:color_yellow bg:color_green)\
+[](fg:color_bg bg:color_fg)\
+$directory\
+[](fg:color_fg bg:color_green)\
 $git_branch\
 $git_status\
 $package\
 $docker_context\
-[](fg:color_green bg:color_fg)\
-$directory\
-[](fg:color_fg)\
+[](fg:color_green bg:color_yellow)\
+$shell\
+$shlvl\
+[](fg:color_yellow bg:color_red)\
+$username\
+[](fg:color_red bg:color_blue)\
+$hostname\
+$localip\
+[](fg:color_blue)\
 $line_break\
 $character"""
 right_format = '$cmd_duration'
